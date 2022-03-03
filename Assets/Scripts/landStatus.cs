@@ -15,7 +15,7 @@ public class landStatus : MonoBehaviour
     void Start()
     {
         plant_stage = -1;//start with no plants
-        watering_interval = 3;
+        watering_interval = 30;
         needWater = false;
         checkingWater = false;
 
