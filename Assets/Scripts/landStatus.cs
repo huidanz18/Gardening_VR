@@ -12,10 +12,18 @@ public class landStatus : MonoBehaviour
 
     private float timer;
     private Vector3 initScale;
+
+    public GameObject FruitPrefab;
+    private GameObject myFruit; 
     void Start()
     {
+        //spawn a fruit
+        myFruit = Instantiate(FruitPrefab, transform.position, Quaternion.identity);
+        //disable it for now
+        myFruit.SetActive(false);
+
         plant_stage = -1;//start with no plants
-        watering_interval = 30;
+        watering_interval = 10;
         needWater = false;
         checkingWater = false;
 
@@ -42,6 +50,12 @@ public class landStatus : MonoBehaviour
         {
             transform.Find("Small Plant").gameObject.SetActive(true);
             transform.Find("Small Plant").localScale = initScale *((float)plant_stage+ 0.5f);
+        }
+
+        //show fruit if grown
+        if (isGrown())
+        {
+            myFruit.SetActive(true);
         }
 
         //matching indicator colors

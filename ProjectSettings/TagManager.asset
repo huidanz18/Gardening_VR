@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Seed
   - WateringCan
+  - Fruit
   layers:
   - Default
   - TransparentFX
