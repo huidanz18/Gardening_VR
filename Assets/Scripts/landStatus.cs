@@ -12,7 +12,7 @@ public class landStatus : MonoBehaviour
 
     private float timer;
     private Vector3 initScale;
-    private float targetScale;
+    private float prevScale,targetScale, scaleStep;
 
     public GameObject FruitPrefab;
     private GameObject myFruit; 
@@ -30,6 +30,7 @@ public class landStatus : MonoBehaviour
 
         initScale = transform.Find("Small Plant").localScale;
         targetScale = (float)plant_stage + 0.5f;
+        scaleStep = 0.1f;
         //seed == 0
         //small plant == 1;
         //grown plant == 2;
@@ -39,6 +40,8 @@ public class landStatus : MonoBehaviour
     void Update()
     {
         targetScale = (float)plant_stage + 0.5f;
+        prevScale = Mathf.Max(0, (float)(plant_stage-1) + 0.5f);
+
         //if not checking water and is growing, go checking water
         if (!checkingWater && isGrowing()) {
             StartCoroutine(CheckWater());
