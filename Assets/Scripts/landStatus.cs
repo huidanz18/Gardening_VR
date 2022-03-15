@@ -12,6 +12,7 @@ public class landStatus : MonoBehaviour
 
     private float timer;
     private Vector3 initScale;
+    private float targetScale;
 
     public GameObject FruitPrefab;
     private GameObject myFruit; 
@@ -28,6 +29,7 @@ public class landStatus : MonoBehaviour
         checkingWater = false;
 
         initScale = transform.Find("Small Plant").localScale;
+        targetScale = (float)plant_stage + 0.5f;
         //seed == 0
         //small plant == 1;
         //grown plant == 2;
@@ -49,7 +51,7 @@ public class landStatus : MonoBehaviour
         else
         {
             transform.Find("Small Plant").gameObject.SetActive(true);
-            transform.Find("Small Plant").localScale = initScale *((float)plant_stage+ 0.5f);
+            transform.Find("Small Plant").localScale = initScale *(targetScale);
         }
 
         //show fruit if grown
@@ -61,7 +63,7 @@ public class landStatus : MonoBehaviour
         //matching indicator colors
         if (needWater)
             transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 1);//blue for needWater
-        else { 
+        else {
             if(isGrowing())
                 transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);//green as growning
             else if(isGrown())
