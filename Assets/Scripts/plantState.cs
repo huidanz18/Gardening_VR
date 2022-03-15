@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class landStateTracker : MonoBehaviour
+public class plantState : MonoBehaviour
 {
     // Start is called before the first frame update
     public float watering_interval;
