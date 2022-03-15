@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571334, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -988,6 +988,7 @@ MonoBehaviour:
   plant_stage: 0
   needWater: 0
   checkingWater: 0
+  FruitPrefab: {fileID: 0}
 --- !u!54 &914781518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1811,6 +1812,7 @@ MonoBehaviour:
   plant_stage: 0
   needWater: 0
   checkingWater: 0
+  FruitPrefab: {fileID: 0}
 --- !u!54 &1370075363
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3317,7 +3319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906933622}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000058114523}
-  m_LocalPosition: {x: 0, y: 0.077, z: 1.4650002}
+  m_LocalPosition: {x: 0.06, y: -0.06, z: -0.12}
   m_LocalScale: {x: 0.036567, y: 0.036567, z: 0.036567}
   m_ConstrainProportionsScale: 0
   m_Children: []
