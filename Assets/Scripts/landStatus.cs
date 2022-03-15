@@ -39,6 +39,7 @@ public class landStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        targetScale = (float)plant_stage + 0.5f;
         //if not checking water and is growing, go checking water
         if (!checkingWater && isGrowing()) {
             StartCoroutine(CheckWater());
