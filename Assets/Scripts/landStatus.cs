@@ -12,7 +12,9 @@ public class landStatus : MonoBehaviour
 
     private float timer;
     private Vector3 initScale;
-    private float prevScale,targetScale, scaleStep;
+    public float currentScale,targetScale;
+    public float scaleStep;
+    public float growingTime;
 
     public GameObject FruitPrefab;
     private GameObject myFruit; 
@@ -29,8 +31,10 @@ public class landStatus : MonoBehaviour
         checkingWater = false;
 
         initScale = transform.Find("Small Plant").localScale;
-        targetScale = (float)plant_stage + 0.5f;
-        scaleStep = 0.1f;
+        currentScale = 0.5f;
+
+        timer = 0;
+        //scaleStep = 0.1f;
         //seed == 0
         //small plant == 1;
         //grown plant == 2;
@@ -40,7 +44,12 @@ public class landStatus : MonoBehaviour
     void Update()
     {
         targetScale = (float)plant_stage + 0.5f;
-        prevScale = Mathf.Max(0, (float)(plant_stage-1) + 0.5f);
+
+        timer += Time.deltaTime;
+        if (timer < growingTime && isGrowing())
+        {
+            currentScale += scaleStep;
+        }
 
         //if not checking water and is growing, go checking water
         if (!checkingWater && isGrowing()) {
@@ -54,7 +63,7 @@ public class landStatus : MonoBehaviour
         else
         {
             transform.Find("Small Plant").gameObject.SetActive(true);
-            transform.Find("Small Plant").localScale = initScale *(targetScale);
+            transform.Find("Small Plant").localScale = initScale * (currentScale);//(targetScale);
         }
 
         //show fruit if grown
@@ -77,6 +86,7 @@ public class landStatus : MonoBehaviour
 
 
     }
+
     //check water invoked every watering_interval
     private IEnumerator CheckWater()
     {
@@ -110,6 +120,8 @@ public class landStatus : MonoBehaviour
             //destroy seeds
             Destroy(collision.gameObject);
             plant_stage = 0;
+            //clear timer
+            timer = 0;
             return;
         }
 
@@ -124,6 +136,8 @@ public class landStatus : MonoBehaviour
                 checkingWater = false;
                 //change stage
                 plant_stage++;
+                //clear timer
+                timer = 0;
 
                 if (isGrowing())
                     transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);//green as growning
