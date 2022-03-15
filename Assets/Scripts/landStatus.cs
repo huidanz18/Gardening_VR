@@ -33,7 +33,6 @@ public class landStatus : MonoBehaviour
         //seed == 0
         //small plant == 1;
         //grown plant == 2;
-        //InvokeRepeating("CheckWater", 2f, watering_interval);
     }
 
     // Update is called once per frame
