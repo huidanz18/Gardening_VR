@@ -897,7 +897,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.035
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5167,6 +5167,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 479256, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
   m_PrefabInstance: {fileID: 911188845}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &885709684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885709679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1bb2f48f0d78446b9368cfff210f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 0}
 --- !u!1001 &911188845
 PrefabInstance:
   m_ObjectHideFlags: 0
