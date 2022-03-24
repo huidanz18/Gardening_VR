@@ -72,7 +72,9 @@ public class landStatus : MonoBehaviour
         //show fruit if grown
         if (isGrown())
         {
-            myFruit.SetActive(true);
+            Instantiate(myFruit, transform.position, Quaternion.identity);
+            //myFruit.SetPar
+            //myFruit.SetActive(true);
         }
 
         //matching indicator colors

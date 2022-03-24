@@ -1883,7 +1883,6 @@ MonoBehaviour:
   scaleStep: 0
   growingTime: 0
   FruitPrefab: {fileID: 407191728}
-  p: 0
 --- !u!54 &682713874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2545,7 +2544,6 @@ MonoBehaviour:
   scaleStep: 0
   growingTime: 0
   FruitPrefab: {fileID: 407191728}
-  p: 0
 --- !u!54 &886913977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3306,10 +3304,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3437871799344594780, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913531318906646817, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: scaleStep
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
       propertyPath: FruitPrefab
       value: 
       objectReference: {fileID: 407191728}
+    - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: growingTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915448905231119155, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915448905231119155, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
 --- !u!4 &1339702823 stripped
@@ -4723,9 +4745,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3437871799344594780, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: scaleStep
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
       propertyPath: FruitPrefab
       value: 
       objectReference: {fileID: 407191728}
+    - target: {fileID: 6915072060531373915, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
+      propertyPath: growingTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4c0cb967e564d4a9c301bffb722511, type: 3}
