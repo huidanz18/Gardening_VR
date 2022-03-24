@@ -18,13 +18,14 @@ public class landStatus : MonoBehaviour
 
     public GameObject FruitPrefab;
     private GameObject myFruit;
+    public bool hasFruit;
 
     //public int p;
     void Start()
     {
         //p = 0;
         //spawn a fruit
-        myFruit = Instantiate(FruitPrefab, transform.position, Quaternion.identity);
+        myFruit = Instantiate(FruitPrefab, transform.position + new Vector3(0, 1,0), Quaternion.identity);
         //disable it for now
         myFruit.SetActive(false);
 
@@ -41,6 +42,7 @@ public class landStatus : MonoBehaviour
         //seed == 0
         //small plant == 1;
         //grown plant == 2;
+        hasFruit = false;
     }
 
     // Update is called once per frame
@@ -72,9 +74,13 @@ public class landStatus : MonoBehaviour
         //show fruit if grown
         if (isGrown())
         {
-            Instantiate(myFruit, transform.position, Quaternion.identity);
-            //myFruit.SetPar
-            //myFruit.SetActive(true);
+            if (!hasFruit) {
+                //Instantiate(myFruit, transform.position, Quaternion.identity);
+                //myFruit.SetPar
+                myFruit.SetActive(true);
+                //hasFruit = true;
+            }
+               
         }
 
         //matching indicator colors
