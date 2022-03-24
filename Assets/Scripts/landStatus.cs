@@ -6,9 +6,10 @@ public class landStatus : MonoBehaviour
 {
     // Start is called before the first frame update
     //water interval
-    public float watering_interval;
+    public float watering_interval,BP_interval;
     public int plant_stage;
     public bool needWater, checkingWater;
+    public bool needBP, checkingBP;
 
     private float timer;
     private Vector3 initScale;
@@ -25,12 +26,17 @@ public class landStatus : MonoBehaviour
     {
         //p = 0;
         //spawn a fruit
-        myFruit = Instantiate(FruitPrefab, transform.position + new Vector3(0, 1,0), Quaternion.identity);
+        myFruit = Instantiate(FruitPrefab, transform.position + new Vector3(0, 0.1f,0), Quaternion.identity);
         //disable it for now
         myFruit.SetActive(false);
 
         plant_stage = -1;//start with no plants
+
+        //tasks related params
         watering_interval = 10;
+        BP_interval = 10;
+        needWater = false;
+        checkingWater = false;
         needWater = false;
         checkingWater = false;
 
@@ -57,10 +63,30 @@ public class landStatus : MonoBehaviour
         }
 
         //if not checking water and is growing, go checking water
-        if (!checkingWater && isGrowing()) {
-            StartCoroutine(CheckWater());
-            checkingWater = true;
+        //either check water or bp
+        int flip = Random.Range(0, 1);
+
+        if (!checkingWater && !checkingBP) {
+            if (flip == 0)
+            {
+                //heads, check water
+                if (!checkingWater && isGrowing())
+                {
+                    StartCoroutine(CheckWater());
+                    checkingWater = true;
+                }
+            }
+            else
+            {
+                //tails, check bp
+                if (!checkingWater && isGrowing())
+                {
+                    StartCoroutine(CheckWater());
+                    checkingWater = true;
+                }
+            }
         }
+
 
         //matching plant appearance
         if (isEmpty())
@@ -75,10 +101,7 @@ public class landStatus : MonoBehaviour
         if (isGrown())
         {
             if (!hasFruit) {
-                //Instantiate(myFruit, transform.position, Quaternion.identity);
-                //myFruit.SetPar
                 myFruit.SetActive(true);
-                //hasFruit = true;
             }
                
         }
@@ -86,6 +109,16 @@ public class landStatus : MonoBehaviour
         //matching indicator colors
         if (needWater)
             transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 1);//blue for needWater
+        else if (needBP)
+        {
+            transform.Find("status").gameObject.GetComponent<Renderer>().material.color = Color.black;//black for bp
+            //show bugs
+            if (transform.Find("bug") == null) {
+                //no bug, reset
+                needBP = false;
+                checkingBP = false;
+            }
+        }
         else {
             if(isGrowing())
                 transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);//green as growning
@@ -105,6 +138,15 @@ public class landStatus : MonoBehaviour
         print("needs water");
         //change indicator appearance
         needWater = true;
+    }
+
+    private IEnumerator CheckBP()
+    {
+        yield return new WaitForSeconds(watering_interval);
+        print("needs water");
+
+        transform.Find("bug").gameObject.SetActive(true);
+        needBP = true;
     }
 
     private bool isGrowing()
