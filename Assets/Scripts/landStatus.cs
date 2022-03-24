@@ -17,9 +17,12 @@ public class landStatus : MonoBehaviour
     public float growingTime;
 
     public GameObject FruitPrefab;
-    private GameObject myFruit; 
+    private GameObject myFruit;
+
+    //public int p;
     void Start()
     {
+        //p = 0;
         //spawn a fruit
         myFruit = Instantiate(FruitPrefab, transform.position, Quaternion.identity);
         //disable it for now
@@ -126,7 +129,7 @@ public class landStatus : MonoBehaviour
         }
 
         //watering
-        if (collision.gameObject.tag == "WateringCan" && isGrowing())
+        /*if (collision.gameObject.tag == "WateringCan" && isGrowing())
         {
             if (needWater)
             {
@@ -153,6 +156,30 @@ public class landStatus : MonoBehaviour
 
             return;
         
+        }*/
+    }
+
+
+    void OnParticleCollision(GameObject other)
+    {
+        //print("hitting");
+        //p++;
+        if (needWater)
+        {
+            //water at the right time
+            print("watering right!!!!!");
+            needWater = false;
+            checkingWater = false;
+            //change stage
+            plant_stage++;
+            //clear timer
+            timer = 0;
+
+            if (isGrowing())
+                transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);//green as growning
+            else//can harvest
+                transform.Find("status").gameObject.GetComponent<Renderer>().material.color = new Color(255, 165, 0);
+
         }
     }
 }

@@ -30,18 +30,21 @@ public class WateringCan : MonoBehaviour
         //Transform rightHandRotation = rightHand.Transform.rotation;
 
         GameObject water = GameObject.Find("water");
-        
-        
 
         //check if rotation meets threshold
-        if (transform.rotation.z >= 0.35f) {
-            water.GetComponent<ParticleSystem>().Play();
-            Debug.Log(transform);
+        if (transform.localEulerAngles.z >= 30 && transform.localEulerAngles.z <= 180) {
+            if (!water.GetComponent<ParticleSystem>().isPlaying) {
+                water.GetComponent<ParticleSystem>().Play();
+            }
+                
+            //Debug.Log(transform);
         }
         else {
-            water.GetComponent<ParticleSystem>().Stop();
-
-            Debug.Log(transform.rotation.z);
+            if (water.GetComponent<ParticleSystem>().isPlaying) {
+                water.GetComponent<ParticleSystem>().Stop();
+            }
+                
+            //Debug.Log(transform.rotation.z);
         }
 
         //if rotation meets threshold, turn on water particles
