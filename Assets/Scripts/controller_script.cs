@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR; 
+
+public class NewBehaviourScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {  
+
+        private InputDevice device_l, device_r; 
+
+        List<InputDevice> devices_l = new List<InputDevice>();
+        List<InputDevice> devices_r = new List<InputDevice>();
+        InputDeviceCharacteristics charac_l = = InputDeviceCharacteristics.left & InputDeviceCharacteristics.Controller; 
+        InputDeviceCharacteristics charac_r = InputDeviceCharacteristics.Right & InputDeviceCharacteristics.Controller; 
+        
+        InputDevices.GetDevicesWithCharacteristics(charac_l, devices_l);
+        InputDevices.GetDevicesWithCharacteristics(charac_r, devices_r);
+        
+
+        foreach(var item in devices_l){
+            Debug.Log("left hand!!\n");
+            Debug.Log(item.name+":"+item.characteristics);
+        }
+        foreach(var item in devices_r){
+            Debug.Log("right hand!!\n");
+            Debug.Log(item.name+":"+item.characteristics);
+        }
+
+        if(devices_l.Count > 0){
+            device_l = devices_l[0];
+        }
+        if(devices_r.Count > 0){
+            device_r = devices_r[0];
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
+        if (primaryButton_l){
+            Debug.Log("left hand pressing primary button!!!\n");
+        }
+        
+    }
+}
