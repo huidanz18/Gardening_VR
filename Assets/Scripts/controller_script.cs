@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR; 
+using UnityEngine.XR;
 
-public class NewBehaviourScript : MonoBehaviour
+public class controller_script : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {  
-
-        private InputDevice device_l, device_r; 
-
+    private InputDevice device_l, device_r;
+    void Start() {
         List<InputDevice> devices_l = new List<InputDevice>();
         List<InputDevice> devices_r = new List<InputDevice>();
-        InputDeviceCharacteristics charac_l = = InputDeviceCharacteristics.left & InputDeviceCharacteristics.Controller; 
-        InputDeviceCharacteristics charac_r = InputDeviceCharacteristics.Right & InputDeviceCharacteristics.Controller; 
-        
+        InputDeviceCharacteristics charac_l = InputDeviceCharacteristics.Left & InputDeviceCharacteristics.Controller;
+        InputDeviceCharacteristics charac_r = InputDeviceCharacteristics.Right & InputDeviceCharacteristics.Controller;
+
         InputDevices.GetDevicesWithCharacteristics(charac_l, devices_l);
+        InputDevices.GetDevicesWithCharacteristics(charac_r, devices_r);
+
+        foreach (var item in devices_l)
+        {
+            Debug.Log("left hand!!\n");
+            Debug.Log(item.name + ":" + item.characteristics);
+        }
+    }
+
+       
+}
+
+       // InputDevice.Get
+
+      /*  InputDevices.GetDevicesWithCharacteristics(charac_l, devices_l);
         InputDevices.GetDevicesWithCharacteristics(charac_r, devices_r);
         
 
@@ -35,16 +47,15 @@ public class NewBehaviourScript : MonoBehaviour
         if(devices_r.Count > 0){
             device_r = devices_r[0];
         }
-
-    }
+      */
 
     // Update is called once per frame
-    void Update()
+   /* void Update()
     {
         device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
         if (primaryButton_l){
             Debug.Log("left hand pressing primary button!!!\n");
         }
         
-    }
-}
+    }*/
+

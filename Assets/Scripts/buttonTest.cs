@@ -15,7 +15,7 @@ public class buttonTest : MonoBehaviour
         //InputDeviceCharacteristics isLeft = (InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller);
 
         InputDevices.GetDevicesWithCharacteristics(isRight, r_devices);
-        print(r_devices);
+        print(r_devices[0]);
         foreach (var item in r_devices)
         {
             print(item.name + item.characteristics);
