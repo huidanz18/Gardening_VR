@@ -11,8 +11,6 @@ public class controller_script : MonoBehaviour
         GetController();
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
@@ -24,9 +22,7 @@ public class controller_script : MonoBehaviour
             Debug.Log("left hand pressing primary button!!!\n");
         }//primary as X and A
         
-
     }
-
 
     private void GetController() {
 
