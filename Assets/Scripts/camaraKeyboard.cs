@@ -23,11 +23,11 @@ public class camaraKeyboard : MonoBehaviour
         float y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
 
-        xR -= my;
+        /*xR -= my;
         xR = Mathf.Clamp(xR, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xR, 0, 0f);
-        transform.Rotate(Vector3.up * mx);
+        transform.localRotation = Quaternion.Euler(xR, transform.localRotation.y, 0f);
+        transform.Rotate(Vector3.up * mx);*/
 
         transform.position += new Vector3(x, y, 0);
 

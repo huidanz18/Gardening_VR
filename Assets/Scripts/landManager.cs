@@ -7,7 +7,7 @@ public class landManager : MonoBehaviour
     // Start is called before the first frame update
     //water interval
     public float watering_interval, BP_interval;
-    private int plant_stage;
+    public int plant_stage;
     private bool needWater, checkingWater;
     private bool needBP, checkingBP;
 
