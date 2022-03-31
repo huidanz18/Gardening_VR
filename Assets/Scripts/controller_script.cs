@@ -24,6 +24,38 @@ public class controller_script : MonoBehaviour
         
     }
 
+    void OnControllerColliderHit(ControllerColliderHit hit)
+        
+        // get bug rigid body 
+        Rigidbody body = hit.collider.attachedRigidbody;
+        
+        // no rigidbody
+        if (body == null || body.isKinematic)
+        {
+            return;
+        }
+        
+        if(hit.gameObject.name == "bug"){
+            Debug.Log("collision with bug");
+            
+            if (hit.controller.name != device_l){
+                Debug.Log("devices dont match");
+                return; 
+            }
+
+            device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
+            if (primaryButton_l){
+                Debug.Log("left hand pressing primary button!!!\n");
+                Destroy(hit.gameObject); 
+            }//primary as X and A
+            
+            
+        }
+
+    }
+
+
+
     private void GetController() {
 
         List<InputDevice> devices_l = new List<InputDevice>();
