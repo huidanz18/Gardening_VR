@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class controller_script : MonoBehaviour
+public class HandBehavior : MonoBehaviour
 {
     // Start is called before the first frame update
     private InputDevice device_l, device_r;
+    private bool hasL, hasR;
     void Start()
     {
+        hasL = false;
+        hasR = false;
         GetController();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (device_l == null || device_r == null)
+        if (!hasL|| !hasR)
             GetController();
 
         device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
@@ -26,39 +29,31 @@ public class controller_script : MonoBehaviour
 
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnTriggerStay(Collider other)
     {
 
-        print("hiiiiiiiiiiiiiiiitt");
-        // get bug rigid body 
-        Rigidbody body = hit.collider.attachedRigidbody;
-
-        // no rigidbody
-        if (body == null || body.isKinematic)
+        //print("hiiiiiiiiiiiiiiiitt");
+        if (other.tag == "WateringCan")
         {
-            return;
-        }
-
-        if (hit.gameObject.name == "bug")
-        {
-            Debug.Log("collision with bug");
-
-            if (hit.controller.name != device_l.name)
-            {
-                Debug.Log("devices dont match");
-                return;
-            }
-
+           // Debug.Log("collisionssssssssssssssss");
             device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
+            //print(device_l);
             if (primaryButton_l)
             {
-                Debug.Log("left hand pressing primary button!!!\n");
-                Destroy(hit.gameObject);
+                other.transform.position = transform.position;
+                other.transform.rotation = transform.rotation;
+
+                //disable rigidbody
+                other.GetComponent<Rigidbody>().useGravity = false;
             }//primary as X and A
+            else {
+                other.GetComponent<Rigidbody>().useGravity = true;
+            }
 
         }
 
     }
+
 
     private void GetController()
     {
@@ -75,6 +70,14 @@ public class controller_script : MonoBehaviour
         {
             Debug.Log("left hand!!\n");
             Debug.Log(item.name + ":" + item.characteristics);
+            hasL = true;
+        }
+
+        foreach (var item in devices_r)
+        {
+            Debug.Log("right hand!!\n");
+            Debug.Log(item.name + ":" + item.characteristics);
+            hasR = true;
         }
 
         if (devices_l.Count > 0)
