@@ -24,7 +24,7 @@ public class controller_script : MonoBehaviour
         
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnControllerColliderHit(ControllerColliderHit hit) { 
         
         // get bug rigid body 
         Rigidbody body = hit.collider.attachedRigidbody;
@@ -38,7 +38,7 @@ public class controller_script : MonoBehaviour
         if(hit.gameObject.name == "bug"){
             Debug.Log("collision with bug");
             
-            if (hit.controller.name != device_l){
+            if (hit.controller.name != device_l.name){
                 Debug.Log("devices dont match");
                 return; 
             }
