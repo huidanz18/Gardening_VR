@@ -7,7 +7,8 @@ public class controller_script : MonoBehaviour
 {
     // Start is called before the first frame update
     private InputDevice device_l, device_r;
-    void Start() {
+    void Start()
+    {
         GetController();
     }
 
@@ -18,43 +19,49 @@ public class controller_script : MonoBehaviour
             GetController();
 
         device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
-        if (primaryButton_l){
+        if (primaryButton_l)
+        {
             Debug.Log("left hand pressing primary button!!!\n");
         }//primary as X and A
-        
+
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit) {
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
 
         print("hiiiiiiiiiiiiiiiitt");
         // get bug rigid body 
         Rigidbody body = hit.collider.attachedRigidbody;
-        
+
         // no rigidbody
         if (body == null || body.isKinematic)
         {
             return;
         }
-        
-        if(hit.gameObject.name == "bug"){
+
+        if (hit.gameObject.name == "bug")
+        {
             Debug.Log("collision with bug");
-            
-            if (hit.controller.name != device_l.name){
+
+            if (hit.controller.name != device_l.name)
+            {
                 Debug.Log("devices dont match");
-                return; 
+                return;
             }
 
             device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
-            if (primaryButton_l){
+            if (primaryButton_l)
+            {
                 Debug.Log("left hand pressing primary button!!!\n");
-                Destroy(hit.gameObject); 
+                Destroy(hit.gameObject);
             }//primary as X and A
-               
+
         }
 
     }
 
-    private void GetController() {
+    private void GetController()
+    {
 
         List<InputDevice> devices_l = new List<InputDevice>();
         List<InputDevice> devices_r = new List<InputDevice>();
