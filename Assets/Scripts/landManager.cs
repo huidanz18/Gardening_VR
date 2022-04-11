@@ -5,21 +5,28 @@ using UnityEngine;
 public class landManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    //water interval
+    //status stuff
     public float watering_interval, BP_interval;
     public int plant_stage;
     private bool needWater, checkingWater;
     private bool needBP, checkingBP;
 
+    //scale stuff
     private float timer;
     private Vector3 initScale;
     private float currentScale, targetScale;
     public float scaleStep;
     public float growingTime;
 
+    //fruit stuff
     public GameObject FruitPrefab;
     private GameObject myFruit;
     private bool hasFruit;
+
+    //bug gameobjects
+    public GameObject BugPrefab;
+    private int bugNumb;
+    private List<GameObject> bugs;//use list to hold the references to bugs
 
     public GameObject icon;
     public GameObject plantObj;
@@ -55,6 +62,9 @@ public class landManager : MonoBehaviour
         //small plant == 1;
         //grown plant == 2;
         hasFruit = false;
+
+        bugs = new List<GameObject>();//instantiate bug list
+        bugNumb = 3;
     }
 
     // Update is called once per frame
@@ -70,7 +80,7 @@ public class landManager : MonoBehaviour
 
         //if not checking water and is growing, go checking water
         //either check water or bp
-        int flip = Random.Range(0, 1);
+        int flip = 1;
 
         if (!checkingWater && !checkingBP)
         {
@@ -86,10 +96,10 @@ public class landManager : MonoBehaviour
             else
             {
                 //tails, check bp
-                if (!checkingWater && isGrowing())
+                if (!checkingBP && isGrowing())
                 {
-                    StartCoroutine(CheckWater());
-                    checkingWater = true;
+                    StartCoroutine(CheckBP());
+                    checkingBP = true;
                 }
             }
         }
@@ -110,7 +120,6 @@ public class landManager : MonoBehaviour
             {
                 myFruit.SetActive(true);
             }
-
         }
 
         //matching icons
@@ -134,6 +143,9 @@ public class landManager : MonoBehaviour
             else//still growing or empty
                 icon.SetActive(false);
         }
+
+        //check bug pick
+        onBugPicked();
     }
 
     //check water invoked every watering_interval
@@ -150,7 +162,12 @@ public class landManager : MonoBehaviour
         yield return new WaitForSeconds(watering_interval);
         print("needs water");
 
-        transform.Find("bug").gameObject.SetActive(true);
+        //spawn BP
+        for (int i = 0; i < bugNumb; i++)
+        {
+            Vector3 bugPos = transform.position + new Vector3(Random.Range(-.2f, .2f), 0.2f, Random.Range(-.2f, .2f));
+            bugs.Add(Instantiate(BugPrefab, bugPos, Quaternion.identity));
+        }//add all bugs to bug list
         needBP = true;
     }
 
@@ -183,7 +200,7 @@ public class landManager : MonoBehaviour
 
     }
 
-
+    //when watered
     void OnParticleCollision(GameObject other)
     {
         //print("hitting");
@@ -201,5 +218,29 @@ public class landManager : MonoBehaviour
 
 
         }
+    }
+
+    //when bugs are picked
+    void onBugPicked() {
+        if (needBP)
+        {
+            //check the null pointer in list
+            foreach (GameObject bug in bugs) {
+                if (bug == null)
+                    bugs.Remove(bug);
+            }
+
+            //check if all the bugs are picked
+            if (bugs.Count == 0) 
+            {
+                needBP = false;
+                checkingBP = false;
+                //change stage
+                plant_stage++;
+                //clear timer
+                timer = 0;
+            }
+        }
+    
     }
 }

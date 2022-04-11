@@ -24,7 +24,7 @@ public class HandBehavior : MonoBehaviour
         device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
         if (primaryButton_l)
         {
-            Debug.Log("left hand pressing primary button!!!\n");
+            //Debug.Log("left hand pressing primary button!!!\n");
         }//primary as X and A
 
     }
@@ -32,7 +32,6 @@ public class HandBehavior : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
 
-        //print("hiiiiiiiiiiiiiiiitt");
         if (other.tag == "WateringCan")
         {
            // Debug.Log("collisionssssssssssssssss");
@@ -41,7 +40,7 @@ public class HandBehavior : MonoBehaviour
             if (primaryButton_l)
             {
                 other.transform.position = transform.position;
-                other.transform.rotation = transform.rotation;
+                //other.transform.rotation = transform.rotation;
 
                 //disable rigidbody
                 other.GetComponent<Rigidbody>().useGravity = false;
@@ -50,6 +49,20 @@ public class HandBehavior : MonoBehaviour
                 other.GetComponent<Rigidbody>().useGravity = true;
             }
 
+        }
+
+        if (other.tag == "Bug")
+        {
+            Debug.Log("tttttttoooouch buuuuuuuuug");
+            device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
+            
+            if (primaryButton_l)
+            {
+                //kill bug
+                Destroy(other.gameObject);
+                
+            }//primary as X and A
+            
         }
 
     }
