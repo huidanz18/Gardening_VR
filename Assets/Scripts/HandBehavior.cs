@@ -6,8 +6,11 @@ using UnityEngine.XR;
 public class HandBehavior : MonoBehaviour
 {
     // Start is called before the first frame update
-    private InputDevice device_l, device_r;
+    private InputDevice device_l, device_r, myDevice;
     private bool hasL, hasR;
+
+    public bool isLeft;
+
     void Start()
     {
         hasL = false;
@@ -21,26 +24,23 @@ public class HandBehavior : MonoBehaviour
         if (!hasL|| !hasR)
             GetController();
 
-        device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
+        device_r.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
         if (primaryButton_l)
         {
-            //Debug.Log("left hand pressing primary button!!!\n");
+            Debug.Log("left hand pressing primary button!!!\n");
         }//primary as X and A
 
     }
 
     void OnTriggerStay(Collider other)
     {
-
-        if (other.tag == "WateringCan")
+        if (isInteractable(other.gameObject))//(other.tag == "WateringCan")
         {
-           // Debug.Log("collisionssssssssssssssss");
-            device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
-            //print(device_l);
-            if (primaryButton_l)
+            
+            if (GetAXPressed())
             {
                 other.transform.position = transform.position;
-                //other.transform.rotation = transform.rotation;
+                other.transform.rotation = transform.rotation;
 
                 //disable rigidbody
                 other.GetComponent<Rigidbody>().useGravity = false;
@@ -53,10 +53,8 @@ public class HandBehavior : MonoBehaviour
 
         if (other.tag == "Bug")
         {
-            Debug.Log("tttttttoooouch buuuuuuuuug");
-            device_l.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton_l);
             
-            if (primaryButton_l)
+            if (GetTriggerPressed())
             {
                 //kill bug
                 Destroy(other.gameObject);
@@ -67,14 +65,21 @@ public class HandBehavior : MonoBehaviour
 
     }
 
+    //see if grab is attached
+    bool isInteractable(GameObject gmObj) {
 
+        return gmObj.GetComponent<customizedGrab>() != null;
+    
+    }
+    //from here are control helper functions ----------------------------------------------------------------------------
+    //to pick up controller 
     private void GetController()
     {
 
         List<InputDevice> devices_l = new List<InputDevice>();
         List<InputDevice> devices_r = new List<InputDevice>();
         InputDeviceCharacteristics charac_l = InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller;
-        InputDeviceCharacteristics charac_r = InputDeviceCharacteristics.Right & InputDeviceCharacteristics.Controller;
+        InputDeviceCharacteristics charac_r = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
 
         InputDevices.GetDevicesWithCharacteristics(charac_l, devices_l);
         InputDevices.GetDevicesWithCharacteristics(charac_r, devices_r);
@@ -101,7 +106,25 @@ public class HandBehavior : MonoBehaviour
         {
             device_r = devices_r[0];
         }
+
+        if (isLeft)
+            myDevice = device_l;
+        else
+            myDevice = device_r;
     }
 
+    //pick up bottons
+    bool GetAXPressed() {
+
+        myDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButton);
+        return primaryButton;
+        
+    }
+
+    bool GetTriggerPressed()
+    {
+        myDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool primaryButton);
+        return primaryButton;
+    }
 }
 

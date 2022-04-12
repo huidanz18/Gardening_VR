@@ -160,7 +160,7 @@ public class landManager : MonoBehaviour
     private IEnumerator CheckBP()
     {
         yield return new WaitForSeconds(watering_interval);
-        print("needs water");
+        //print("needs water");
 
         //spawn BP
         for (int i = 0; i < bugNumb; i++)
