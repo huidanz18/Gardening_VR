@@ -41,4 +41,15 @@ public class mudControl : MonoBehaviour
         }
 
     }
+    //hit by seed
+    void OnParticleCollision(GameObject other)
+    {
+        if (other.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
+        {
+            land.GetComponent<landManager>().plant_stage = 0;
+            //clear timer
+            land.GetComponent<landManager>().timer = 0;
+            return;
+        }
+    }
 }

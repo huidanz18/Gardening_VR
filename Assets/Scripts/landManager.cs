@@ -79,7 +79,7 @@ public class landManager : MonoBehaviour
 
         //if not checking water and is growing, go checking water
         //either check water or bp
-        int flip = 1;
+        int flip = Random.Range(0,2);
 
         if (!checkingWater && !checkingBP)
         {
@@ -188,9 +188,8 @@ public class landManager : MonoBehaviour
     //when watered
     void OnParticleCollision(GameObject other)
     {
-        //print("hitting");
-        //p++;
-        if (needWater)
+       
+        if (other.tag == "Water" && needWater)
         {
             //water at the right time
             print("watering right!!!!!");

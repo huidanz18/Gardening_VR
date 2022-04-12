@@ -9,6 +9,7 @@ TagManager:
   - Fruit
   - Bug
   - Mud
+  - Water
   layers:
   - Default
   - TransparentFX
