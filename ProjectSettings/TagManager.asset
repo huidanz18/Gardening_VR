@@ -8,6 +8,7 @@ TagManager:
   - WateringCan
   - Fruit
   - Bug
+  - Mud
   layers:
   - Default
   - TransparentFX

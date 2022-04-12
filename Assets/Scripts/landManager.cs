@@ -12,7 +12,7 @@ public class landManager : MonoBehaviour
     private bool needBP, checkingBP;
 
     //scale stuff
-    private float timer;
+    public float timer;
     private Vector3 initScale;
     private float currentScale, targetScale;
     public float scaleStep;
@@ -30,8 +30,7 @@ public class landManager : MonoBehaviour
 
     public GameObject icon;
     public GameObject plantObj;
-
-    //public int p;
+    public GameObject mud;
     void Start()
     {
         //p = 0;
@@ -44,8 +43,8 @@ public class landManager : MonoBehaviour
         icon.SetActive(false);//disable icon
 
         //tasks related params
-        watering_interval = 1;
-        BP_interval = 1;
+        watering_interval = 10;
+        BP_interval = 10;
         needWater = false;
         checkingWater = false;
         needWater = false;
@@ -54,8 +53,8 @@ public class landManager : MonoBehaviour
         initScale = plantObj.transform.localScale;
         currentScale = 0.5f;
 
-        scaleStep = 0.002f;
-        growingTime = 2;
+        scaleStep = 0.0003f;
+        growingTime = 10;
 
         timer = 0;
         //seed == 0
@@ -185,20 +184,6 @@ public class landManager : MonoBehaviour
         return plant_stage == 2;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Seed" && isEmpty())
-        {
-            print("plant");
-            //destroy seeds
-            Destroy(collision.gameObject);
-            plant_stage = 0;
-            //clear timer
-            timer = 0;
-            return;
-        }
-
-    }
 
     //when watered
     void OnParticleCollision(GameObject other)

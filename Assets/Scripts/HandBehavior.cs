@@ -54,13 +54,21 @@ public class HandBehavior : MonoBehaviour
         if (other.tag == "Bug")
         {
             
-            if (GetTriggerPressed())
+            if (GetTriggerPressed() && GetAXPressed())
             {
                 //kill bug
                 Destroy(other.gameObject);
-                
-            }//primary as X and A
+            }
             
+        }
+
+        if (other.tag == "Mud")
+        {
+            if (GetTriggerPressed())
+            {
+                //mud dig++
+                other.GetComponent<mudControl>().digCount++;
+            }
         }
 
     }
@@ -107,6 +115,7 @@ public class HandBehavior : MonoBehaviour
             device_r = devices_r[0];
         }
 
+        //set mydevice accordingly
         if (isLeft)
             myDevice = device_l;
         else
@@ -121,10 +130,18 @@ public class HandBehavior : MonoBehaviour
         
     }
 
+    bool GetBYPressed()
+    {
+
+        myDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out bool secondaryButton);
+        return secondaryButton;
+
+    }
+
     bool GetTriggerPressed()
     {
-        myDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool primaryButton);
-        return primaryButton;
+        myDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerButton);
+        return triggerButton;
     }
 }
 

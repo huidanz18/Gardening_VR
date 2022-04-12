@@ -114,16 +114,10 @@ MonoBehaviour:
   watering_interval: 0
   BP_interval: 0
   plant_stage: 0
-  needWater: 0
-  checkingWater: 0
-  needBP: 0
-  checkingBP: 0
-  currentScale: 0
-  targetScale: 0
   scaleStep: 0
   growingTime: 0
   FruitPrefab: {fileID: 5746052209443594895, guid: 1692493f4f03dfc46b95f17dcbaa2d17, type: 3}
-  hasFruit: 0
+  BugPrefab: {fileID: 0}
   icon: {fileID: 9204842471054913273}
   plantObj: {fileID: 8041273740741510850}
 --- !u!1 &4624512866804864501
@@ -349,7 +343,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9204842471054913273}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
