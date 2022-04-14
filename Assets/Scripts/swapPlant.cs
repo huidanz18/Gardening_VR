@@ -5,13 +5,11 @@ using UnityEngine;
 public class swapPlant : MonoBehaviour
 {
     // Start is called before the first frame update
-    public string pType;
     public GameObject my_smallPlant, my_growingPlant, my_grownPlant, my_deadPlant;
     private GameObject currentPlant;
 
     void Start()
     {
-        pType = "";
     }
 
     public void spawnPlants(string plantType) {

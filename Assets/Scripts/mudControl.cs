@@ -12,7 +12,9 @@ public class mudControl : MonoBehaviour
     {
         mudReady = false;
         digCount = 0;
-        //transform.localScale = (Vector3.one / 4f) * 0.4f;
+
+        //test purpose
+        land.GetComponent<swapPlant>().spawnPlants("tomato");
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class mudControl : MonoBehaviour
         }
 
     }*/
+
     //hit by seed
     void OnParticleCollision(GameObject other)
     {

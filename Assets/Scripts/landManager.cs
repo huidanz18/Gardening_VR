@@ -6,7 +6,7 @@ public class landManager : MonoBehaviour
 {
     // Start is called before the first frame update
     //status stuff
-    public float watering_interval, BP_interval;
+    public float watering_interval, BP_interval, tillgrow_interval;
     public int plant_stage;
     public bool isDead;
     private bool needWater, checkingWater;
@@ -17,7 +17,9 @@ public class landManager : MonoBehaviour
     private Vector3 initScale;
     private float currentScale, targetScale;
     public float scaleStep;
-    public float growingTime;
+    public int growingTime;
+    public float maxScale;
+    private bool growingAnim;
 
     //fruit stuff
     public GameObject FruitPrefab;
@@ -47,6 +49,8 @@ public class landManager : MonoBehaviour
         //tasks related params
         watering_interval = 10;
         BP_interval = 10;
+        tillgrow_interval = 2;
+
         needWater = false;
         checkingWater = false;
         needWater = false;
@@ -57,6 +61,7 @@ public class landManager : MonoBehaviour
 
         scaleStep = 0.0003f;
         growingTime = 10;
+        maxScale = 1.5f;
 
         timer = 0;
         //seed == 0
@@ -66,6 +71,7 @@ public class landManager : MonoBehaviour
 
         bugs = new List<GameObject>();//instantiate bug list
         bugNumb = 3;
+        growingAnim = false;
     }
 
     // Update is called once per frame
@@ -111,6 +117,10 @@ public class landManager : MonoBehaviour
         else
         {
             plantObj.SetActive(true);
+            print(plantObj.transform.localScale);
+
+            if (!growingAnim && plantObj.transform.localScale.x < maxScale && !isGrown())
+                StartCoroutine(StartGrowing());
             //plantObj.transform.localScale = initScale * (currentScale);//(targetScale);
         }
 
@@ -186,6 +196,23 @@ public class landManager : MonoBehaviour
         return plant_stage == 2;
     }
 
+    private IEnumerator StartGrowing() {
+        growingAnim = true;
+        //wait for a while then grow
+        yield return new WaitForSeconds(tillgrow_interval);
+
+        //growing
+        float scaleUp = 1;
+        while (scaleUp < maxScale)
+        {
+            yield return new WaitForSeconds(0.0001f);
+            scaleUp += scaleStep;
+            plantObj.transform.localScale = Vector3.one * scaleUp;
+            
+        }
+        growingAnim = false;
+            
+    }
 
     //when watered
     void OnParticleCollision(GameObject other)
@@ -201,8 +228,6 @@ public class landManager : MonoBehaviour
             plant_stage++;
             //clear timer
             timer = 0;
-
-
         }
     }
 
