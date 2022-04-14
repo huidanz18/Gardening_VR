@@ -8,6 +8,7 @@ public class landManager : MonoBehaviour
     //status stuff
     public float watering_interval, BP_interval;
     public int plant_stage;
+    public bool isDead;
     private bool needWater, checkingWater;
     private bool needBP, checkingBP;
 
@@ -35,11 +36,12 @@ public class landManager : MonoBehaviour
     {
         //p = 0;
         //spawn a fruit
-        myFruit = Instantiate(FruitPrefab, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+        myFruit = Instantiate(FruitPrefab, transform.position + new Vector3(0, 0.3f, 0), Quaternion.identity);
         //disable it for now
         myFruit.SetActive(false);
 
         plant_stage = -1;//start with no plants
+        isDead = false;
         icon.SetActive(false);//disable icon
 
         //tasks related params
@@ -109,7 +111,7 @@ public class landManager : MonoBehaviour
         else
         {
             plantObj.SetActive(true);
-            plantObj.transform.localScale = initScale * (currentScale);//(targetScale);
+            //plantObj.transform.localScale = initScale * (currentScale);//(targetScale);
         }
 
         //show fruit if grown

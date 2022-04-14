@@ -26,7 +26,7 @@ public class mudControl : MonoBehaviour
             mudReady = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
         {
@@ -40,12 +40,13 @@ public class mudControl : MonoBehaviour
             return;
         }
 
-    }
+    }*/
     //hit by seed
     void OnParticleCollision(GameObject other)
     {
         if (other.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
         {
+            land.GetComponent<swapPlant>().spawnPlants("tomato");
             land.GetComponent<landManager>().plant_stage = 0;
             //clear timer
             land.GetComponent<landManager>().timer = 0;
