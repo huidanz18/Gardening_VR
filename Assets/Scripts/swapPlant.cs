@@ -46,13 +46,13 @@ public class swapPlant : MonoBehaviour
                     currentPlant.SetActive(false);
                     currentPlant = my_growingPlant;
                     currentPlant.SetActive(true);
-                    //give small plant
+                    //give growing plant
                     break;
                 case 2:
                     currentPlant.SetActive(false);
                     currentPlant = my_grownPlant;
                     currentPlant.SetActive(true);
-                    //give small plant
+                    //give grown plant
                     break;
 
             }

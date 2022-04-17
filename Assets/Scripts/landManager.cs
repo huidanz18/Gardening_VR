@@ -49,7 +49,7 @@ public class landManager : MonoBehaviour
         //tasks related params
         watering_interval = 10;
         BP_interval = 10;
-        tillgrow_interval = 2;
+        tillgrow_interval = 10; 
 
         needWater = false;
         checkingWater = false;
@@ -117,8 +117,6 @@ public class landManager : MonoBehaviour
         else
         {
             plantObj.SetActive(true);
-            print(plantObj.transform.localScale);
-
             if (!growingAnim && plantObj.transform.localScale.x < maxScale && !isGrown())
                 StartCoroutine(StartGrowing());
             //plantObj.transform.localScale = initScale * (currentScale);//(targetScale);

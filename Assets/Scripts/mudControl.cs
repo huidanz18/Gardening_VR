@@ -13,8 +13,6 @@ public class mudControl : MonoBehaviour
         mudReady = false;
         digCount = 0;
 
-        //test purpose
-        land.GetComponent<swapPlant>().spawnPlants("tomato");
     }
 
     // Update is called once per frame
@@ -28,28 +26,14 @@ public class mudControl : MonoBehaviour
             mudReady = true;
     }
 
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
-        {
-            if (collision.gameObject.GetComponent<Rigidbody>().velocity.y < -0.2)
-                return;//seed falling too fast
-
-            Destroy(collision.gameObject);
-            land.GetComponent<landManager>().plant_stage = 0;
-            //clear timer
-            land.GetComponent<landManager>().timer = 0;
-            return;
-        }
-
-    }*/
-
     //hit by seed
     void OnParticleCollision(GameObject other)
     {
         if (other.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
         {
-            land.GetComponent<swapPlant>().spawnPlants("tomato");
+            GameObject bag = other.transform.parent.gameObject;
+            string plantType = bag.name.Split("_")[1];
+            land.GetComponent<swapPlant>().spawnPlants(plantType);
             land.GetComponent<landManager>().plant_stage = 0;
             //clear timer
             land.GetComponent<landManager>().timer = 0;
@@ -57,3 +41,21 @@ public class mudControl : MonoBehaviour
         }
     }
 }
+
+//trash code
+
+/*private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.tag == "Seed" && mudReady && land.GetComponent<landManager>().plant_stage < 0)
+    {
+        if (collision.gameObject.GetComponent<Rigidbody>().velocity.y < -0.2)
+            return;//seed falling too fast
+
+        Destroy(collision.gameObject);
+        land.GetComponent<landManager>().plant_stage = 0;
+        //clear timer
+        land.GetComponent<landManager>().timer = 0;
+        return;
+    }
+
+}*/
