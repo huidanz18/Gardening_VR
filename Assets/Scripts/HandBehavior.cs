@@ -39,15 +39,18 @@ public class HandBehavior : MonoBehaviour
             
             if (GetTriggerPressed())
             {
-                other.transform.position = transform.position;
-                other.transform.rotation = transform.rotation;
+                other.transform.parent = transform.parent;
+                //other.transform.position = transform.position;
+                //other.transform.rotation = transform.rotation;
 
                 //disable rigidbody
                 other.GetComponent<Rigidbody>().useGravity = false;
-                other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }//primary as X and A
             else {
+                other.transform.parent = null;
                 other.GetComponent<Rigidbody>().useGravity = true;
+                other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             }
 
         }
@@ -78,7 +81,9 @@ public class HandBehavior : MonoBehaviour
     {
         if (isInteractable(other.gameObject))//(other.tag == "WateringCan")
         {
+            other.transform.parent = null;
             other.GetComponent<Rigidbody>().useGravity = true;
+            other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 
