@@ -12,7 +12,7 @@ public class mudControl : MonoBehaviour
     {
         mudReady = false;
         digCount = 0;
-
+        land.GetComponent<swapPlant>().spawnPlants("tomato");
     }
 
     // Update is called once per frame

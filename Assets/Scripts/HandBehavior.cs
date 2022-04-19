@@ -37,13 +37,14 @@ public class HandBehavior : MonoBehaviour
         if (isInteractable(other.gameObject))//(other.tag == "WateringCan")
         {
             
-            if (GetAXPressed())
+            if (GetTriggerPressed())
             {
                 other.transform.position = transform.position;
                 other.transform.rotation = transform.rotation;
 
                 //disable rigidbody
                 other.GetComponent<Rigidbody>().useGravity = false;
+                other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             }//primary as X and A
             else {
                 other.GetComponent<Rigidbody>().useGravity = true;
@@ -71,6 +72,14 @@ public class HandBehavior : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (isInteractable(other.gameObject))//(other.tag == "WateringCan")
+        {
+            other.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 
     //see if grab is attached

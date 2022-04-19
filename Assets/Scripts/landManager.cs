@@ -49,7 +49,7 @@ public class landManager : MonoBehaviour
         //tasks related params
         watering_interval = 10;
         BP_interval = 10;
-        tillgrow_interval = 10; 
+        tillgrow_interval = 1; 
 
         needWater = false;
         checkingWater = false;
@@ -87,7 +87,7 @@ public class landManager : MonoBehaviour
 
         //if not checking water and is growing, go checking water
         //either check water or bp
-        int flip = Random.Range(0,2);
+        /*int flip = Random.Range(0,2);
 
         if (!checkingWater && !checkingBP)
         {
@@ -109,7 +109,7 @@ public class landManager : MonoBehaviour
                     checkingBP = true;
                 }
             }
-        }
+        }*/
 
         //matching plant appearance
         if (isEmpty())
@@ -208,6 +208,31 @@ public class landManager : MonoBehaviour
             plantObj.transform.localScale = Vector3.one * scaleUp;
             
         }
+        //go check for water/bp
+        int flip = Random.Range(0, 2);
+
+        if (!checkingWater && !checkingBP)
+        {
+            if (flip == 0)
+            {
+                //heads, check water
+                if (!checkingWater && isGrowing())
+                {
+                    StartCoroutine(CheckWater());
+                    checkingWater = true;
+                }
+            }
+            else
+            {
+                //tails, check bp
+                if (!checkingBP && isGrowing())
+                {
+                    StartCoroutine(CheckBP());
+                    checkingBP = true;
+                }
+            }
+        }
+
         growingAnim = false;
             
     }
