@@ -164,7 +164,7 @@ public class landManager : MonoBehaviour
         onBugPicked();
 
         //check dig count
-        if (digCount > 3)
+        if (digCount > 3 && isGrown())
             cleanLand();
     }
 
