@@ -12,14 +12,14 @@ public class mudControl : MonoBehaviour
     {
         mudReady = false;
         digCount = 0;
-        land.GetComponent<swapPlant>().spawnPlants("tomato");
+        land.GetComponent<swapPlant>().spawnPlants("cucumber");
     }
 
     // Update is called once per frame
     void Update()
     {
         digCount = Mathf.Min(3, digCount);
-        transform.localScale = (Vector3.one / 4f *(digCount + 1)) * 0.5f;
+        transform.localScale = Vector3.one * 0.25f + (Vector3.one  *0.1f *(digCount + 1));
 
         //dig three times is enough
         if (digCount == 3)
@@ -38,6 +38,15 @@ public class mudControl : MonoBehaviour
             //clear timer
             land.GetComponent<landManager>().timer = 0;
             return;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Shovel" && land.GetComponent<landManager>().plant_stage < 0)
+        {
+            //do dig count plus
+            digCount++;
         }
     }
 }

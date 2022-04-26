@@ -71,7 +71,7 @@ public class HandBehavior : MonoBehaviour
             if (GetTriggerPressed())
             {
                 //mud dig++
-                other.GetComponent<mudControl>().digCount++;
+                //other.GetComponent<mudControl>().digCount++;
             }
         }
 

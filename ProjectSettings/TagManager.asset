@@ -10,6 +10,7 @@ TagManager:
   - Bug
   - Mud
   - Water
+  - Shovel
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,11 @@ public class landManager : MonoBehaviour
     public GameObject icon;
     public GameObject plantObj;
     public GameObject mud;
+
+    public int digCount;
+
+    private IEnumerator coroutine;
+
     void Start()
     {
         //p = 0;
@@ -72,6 +77,9 @@ public class landManager : MonoBehaviour
         bugs = new List<GameObject>();//instantiate bug list
         bugNumb = 3;
         growingAnim = false;
+
+        digCount = 0;
+        StartCoroutine(CleanDig());
     }
 
     // Update is called once per frame
@@ -79,11 +87,6 @@ public class landManager : MonoBehaviour
     {
         targetScale = (float)plant_stage + 0.5f;
 
-        timer += Time.deltaTime;
-        if (timer < growingTime && isGrowing())
-        {
-            currentScale += scaleStep;
-        }
 
         //if not checking water and is growing, go checking water
         //either check water or bp
@@ -118,7 +121,11 @@ public class landManager : MonoBehaviour
         {
             plantObj.SetActive(true);
             if (!growingAnim && plantObj.transform.localScale.x < maxScale && !isGrown())
-                StartCoroutine(StartGrowing());
+            {
+                coroutine = StartGrowing();
+                StartCoroutine(coroutine);
+            }
+               
             //plantObj.transform.localScale = initScale * (currentScale);//(targetScale);
         }
 
@@ -155,6 +162,10 @@ public class landManager : MonoBehaviour
 
         //check bug pick
         onBugPicked();
+
+        //check dig count
+        if (digCount > 3)
+            cleanLand();
     }
 
     //check water invoked every watering_interval
@@ -178,6 +189,14 @@ public class landManager : MonoBehaviour
             bugs.Add(Instantiate(BugPrefab, bugPos, Quaternion.identity));
         }//add all bugs to bug list
         needBP = true;
+    }
+
+    private IEnumerator CleanDig() {
+        while (true) {
+            yield return new WaitForSeconds(5);
+            digCount = 0;
+            //clean dig time every 5 seconds;
+        }
     }
 
     private bool isGrowing()
@@ -240,7 +259,6 @@ public class landManager : MonoBehaviour
     //when watered
     void OnParticleCollision(GameObject other)
     {
-       
         if (other.tag == "Water" && needWater)
         {
             //water at the right time
@@ -276,5 +294,38 @@ public class landManager : MonoBehaviour
             }
         }
     
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Shovel")
+        {
+            //do dig count plus
+            digCount++;
+        }
+    }
+
+    private void cleanLand() {
+        for (int i = 0; i < transform.parent.childCount; i++) {
+            GameObject c = transform.parent.GetChild(i).gameObject;
+            if (c.name.Substring(0, 6) == "plant_")
+            {
+                Destroy(c);
+                //i = 0;
+            }
+        }
+        //plantObj = transform.parent.Find("Small Plant").gameObject;
+        plant_stage = -1;
+        digCount = 0;
+        needWater = false;
+        checkingWater = false;
+        needWater = false;
+        checkingWater = false;
+        growingAnim = false;
+
+        //clean mud
+        transform.parent.Find("soil_pile").gameObject.GetComponent<mudControl>().mudReady = false;
+        transform.parent.Find("soil_pile").gameObject.GetComponent<mudControl>().digCount = 0;
+        
     }
 }
