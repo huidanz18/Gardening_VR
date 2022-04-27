@@ -114,16 +114,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   watering_interval: 0
   BP_interval: 0
+  tillgrow_interval: 0
   plant_stage: 0
   isDead: 0
   timer: 0
   scaleStep: 0
   growingTime: 0
+  maxScale: 0
   FruitPrefab: {fileID: 5746052209443594895, guid: 1692493f4f03dfc46b95f17dcbaa2d17, type: 3}
   BugPrefab: {fileID: 0}
   icon: {fileID: 9204842471054913273}
   plantObj: {fileID: 8041273740741510850}
   mud: {fileID: 0}
+  digCount: 0
 --- !u!114 &8074442037553006356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,10 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8a2268c7be17840ad01e772fd1773d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smallPlant: {fileID: 8913829725165012121, guid: 18c7a1d510db8e745b4b3f31175e9864, type: 3}
-  growingPlant: {fileID: 8341199872981858442, guid: aa30cc7407948094bab68891e517d371, type: 3}
-  grownPlant: {fileID: 2325672644264147787, guid: 0cea22185d346174ab57e8d3cc29a6ce, type: 3}
-  deadPlant: {fileID: 5238493209296013577, guid: 6f56a9eb8e5a99542b9a474a4be95b3d, type: 3}
+  my_smallPlant: {fileID: 0}
+  my_growingPlant: {fileID: 0}
+  my_grownPlant: {fileID: 0}
+  my_deadPlant: {fileID: 0}
 --- !u!1 &4624512866804864501
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9204842471054913273}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0, y: 0.786, z: -0}
+  m_LocalPosition: {x: -0, y: 0.986, z: -0}
   m_LocalScale: {x: 0.2, y: 0.0015618749, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []

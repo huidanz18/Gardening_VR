@@ -38,6 +38,7 @@ public class landManager : MonoBehaviour
     public int digCount;
 
     private IEnumerator coroutine;
+    private GameObject plantObjHolder;
 
     void Start()
     {
@@ -80,13 +81,19 @@ public class landManager : MonoBehaviour
 
         digCount = 0;
         StartCoroutine(CleanDig());
+
+        plantObjHolder = plantObj;
     }
 
     // Update is called once per frame
     void Update()
     {
-        targetScale = (float)plant_stage + 0.5f;
+        //check dig count
+        if (digCount > 3 && (isGrown() | isDead))
+            cleanLand();
 
+        if (isDead)
+            return;
 
         //if not checking water and is growing, go checking water
         //either check water or bp
@@ -126,7 +133,6 @@ public class landManager : MonoBehaviour
                 StartCoroutine(coroutine);
             }
                
-            //plantObj.transform.localScale = initScale * (currentScale);//(targetScale);
         }
 
         //show fruit if grown
@@ -163,9 +169,7 @@ public class landManager : MonoBehaviour
         //check bug pick
         onBugPicked();
 
-        //check dig count
-        if (digCount > 3 && isGrown())
-            cleanLand();
+       
     }
 
     //check water invoked every watering_interval
@@ -175,6 +179,8 @@ public class landManager : MonoBehaviour
         print("needs water");
         //change indicator appearance
         needWater = true;
+
+        StartCoroutine(CheckDead(plant_stage));
     }
 
     private IEnumerator CheckBP()
@@ -189,6 +195,8 @@ public class landManager : MonoBehaviour
             bugs.Add(Instantiate(BugPrefab, bugPos, Quaternion.identity));
         }//add all bugs to bug list
         needBP = true;
+
+        StartCoroutine(CheckDead(plant_stage));
     }
 
     private IEnumerator CleanDig() {
@@ -196,6 +204,17 @@ public class landManager : MonoBehaviour
             yield return new WaitForSeconds(5);
             digCount = 0;
             //clean dig time every 5 seconds;
+        }
+    }
+
+    private IEnumerator CheckDead(int checkStage) {
+
+        print("checking");
+        yield return new WaitForSeconds(40);
+        if (checkStage == plant_stage && (needWater | needBP))
+        {
+            isDead = true;
+            print(isDead);
         }
     }
 
@@ -322,10 +341,23 @@ public class landManager : MonoBehaviour
         needWater = false;
         checkingWater = false;
         growingAnim = false;
+        isDead = false;
 
         //clean mud
         transform.parent.Find("soil_pile").gameObject.GetComponent<mudControl>().mudReady = false;
         transform.parent.Find("soil_pile").gameObject.GetComponent<mudControl>().digCount = 0;
-        
+
+        //placeholder
+        plantObj = plantObjHolder;
+
+        //clean all bugs
+        foreach (GameObject bug in bugs)
+        {
+            if (bug != null) {
+                Destroy(bug);
+                bugs.Remove(bug);
+            }
+        }
+
     }
 }

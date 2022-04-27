@@ -31,6 +31,8 @@ public class swapPlant : MonoBehaviour
         {
             //disable all 
             currentPlant.SetActive(false);
+            currentPlant = my_deadPlant;
+            currentPlant.SetActive(true);
         }
         else {
             int currentStage = gameObject.GetComponent<landManager>().plant_stage;
